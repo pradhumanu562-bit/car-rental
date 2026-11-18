@@ -1,0 +1,1329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DriveEase | Premium Luxury Car Rental & AI Concierge</title>
+  <meta name="description" content="Experience the ultimate luxury car rental with DriveEase. Premium sports cars, luxury sedans, and exotic SUVs with 24/7 AI Concierge support.">
+  
+  <!-- Google Fonts: Plus Jakarta Sans & Syne -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+  <!-- Top Announcement Bar -->
+  <div class="announcement-bar">
+    <div class="container announcement-content">
+      <span><i class="fa-solid fa-sparkles text-orange"></i> Use promo code <strong class="text-orange">WELCOME10</strong> for 10% off your first luxury rental!</span>
+      <div class="announcement-links">
+        <a href="tel:+18005553748"><i class="fa-solid fa-phone"></i> +1 (800) 555-DRIVE</a>
+        <span class="divider">|</span>
+        <span><i class="fa-solid fa-location-dot"></i> JFK • LAX • MIA • LAS</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header / Navigation Bar -->
+  <header id="main-header" class="site-header">
+    <div class="container header-container">
+      <!-- Brand Logo -->
+      <a href="#home" class="brand-logo" aria-label="DriveEase Home">
+        <div class="logo-icon">
+          <i class="fa-solid fa-car-side"></i>
+        </div>
+        <div class="logo-text">
+          <span>Drive<strong class="text-orange">Ease</strong></span>
+          <span class="logo-tagline">PREMIUM CAR RENTAL</span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Menu -->
+      <nav class="main-nav" id="main-nav" aria-label="Main Navigation">
+        <ul class="nav-list">
+          <li><a href="#home" class="nav-link active">Home</a></li>
+          <li><a href="#cars" class="nav-link">Our Fleet</a></li>
+          <li><a href="#about" class="nav-link">About Us</a></li>
+          <li><a href="#services" class="nav-link">Services</a></li>
+          <li><a href="#reviews" class="nav-link">Reviews</a></li>
+          <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>
+
+      <!-- Header Action Buttons -->
+      <div class="header-actions">
+        <!-- My Bookings Button -->
+        <button id="my-bookings-btn" class="btn btn-outline-sm position-relative" aria-label="View My Bookings">
+          <i class="fa-solid fa-calendar-check"></i>
+          <span class="d-none-sm">My Bookings</span>
+          <span id="booking-badge-count" class="badge-counter d-none">0</span>
+        </button>
+
+        <!-- Auth State (Logged out vs Logged in) -->
+        <div id="auth-buttons-container" class="auth-buttons">
+          <button id="login-btn" class="btn btn-ghost-sm" data-modal="auth-modal" data-tab="login">Log In</button>
+          <button id="signup-btn" class="btn btn-primary-sm" data-modal="auth-modal" data-tab="signup">Sign Up</button>
+        </div>
+
+        <div id="user-profile-widget" class="user-profile-widget d-none">
+          <div class="user-avatar" id="user-avatar">AD</div>
+          <span class="user-name" id="user-display-name">Alex Davis</span>
+          <button id="logout-btn" class="btn-logout" title="Sign Out"><i class="fa-solid fa-arrow-right-from-bracket"></i></button>
+        </div>
+
+        <!-- Mobile Hamburger Toggle -->
+        <button id="menu-toggle" class="menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer Navigation -->
+  <div id="mobile-menu-drawer" class="mobile-menu-drawer" aria-hidden="true">
+    <div class="mobile-drawer-header">
+      <div class="logo-text">
+        <span>Drive<strong class="text-orange">Ease</strong></span>
+      </div>
+      <button id="close-mobile-menu" class="btn-close-drawer" aria-label="Close menu">&times;</button>
+    </div>
+    <ul class="mobile-nav-list">
+      <li><a href="#home" class="mobile-nav-link">Home</a></li>
+      <li><a href="#cars" class="mobile-nav-link">Our Fleet</a></li>
+      <li><a href="#about" class="mobile-nav-link">About Us</a></li>
+      <li><a href="#services" class="mobile-nav-link">Services</a></li>
+      <li><a href="#reviews" class="mobile-nav-link">Customer Reviews</a></li>
+      <li><a href="#contact" class="mobile-nav-link">Contact Us</a></li>
+    </ul>
+    <div class="mobile-drawer-footer">
+      <button class="btn btn-primary w-100 mb-2" data-modal="auth-modal" data-tab="signup">Create Account</button>
+      <button class="btn btn-outline w-100" data-modal="auth-modal" data-tab="login">Sign In</button>
+    </div>
+  </div>
+  <div id="mobile-menu-backdrop" class="drawer-backdrop"></div>
+
+  <!-- Hero Section -->
+  <section id="home" class="hero-section">
+    <div class="hero-bg-overlay"></div>
+    <div class="container hero-container">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <i class="fa-solid fa-crown text-orange"></i>
+          <span>THE GOLD STANDARD IN CAR RENTAL</span>
+        </div>
+        <h1 class="hero-title">
+          Find Your <span class="gradient-text">Perfect Ride</span>
+        </h1>
+        <p class="hero-subtitle">
+          Rent Your Dream Car at Affordable Prices. Unrivaled performance, bespoke comfort, and 24/7 VIP concierge service across the country.
+        </p>
+
+        <div class="hero-cta-group">
+          <a href="#cars" class="btn btn-primary btn-lg">
+            <span>Explore Fleet</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </a>
+          <button class="btn btn-glass btn-lg" id="hero-how-it-works-btn">
+            <i class="fa-solid fa-circle-play text-orange"></i>
+            <span>How It Works</span>
+          </button>
+        </div>
+
+        <!-- Floating Quick Stats -->
+        <div class="hero-stats-row">
+          <div class="stat-pill">
+            <i class="fa-solid fa-car"></i>
+            <div>
+              <strong>500+</strong>
+              <span>Luxury Cars</span>
+            </div>
+          </div>
+          <div class="stat-pill">
+            <i class="fa-solid fa-star text-orange"></i>
+            <div>
+              <strong>4.9 / 5</strong>
+              <span>12k+ Reviews</span>
+            </div>
+          </div>
+          <div class="stat-pill">
+            <i class="fa-solid fa-bolt text-orange"></i>
+            <div>
+              <strong>Instant</strong>
+              <span>Confirmation</span>
+            </div>
+          </div>
+          <div class="stat-pill">
+            <i class="fa-solid fa-shield-halved text-orange"></i>
+            <div>
+              <strong>$0 Hidden</strong>
+              <span>Fee Guarantee</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Interactive Hero Search Widget -->
+    <div class="container hero-search-wrapper">
+      <div class="search-widget" id="search-widget">
+        <div class="search-widget-tabs">
+          <button class="search-tab active" data-type="roundtrip"><i class="fa-solid fa-rotate-left"></i> Round Trip</button>
+          <button class="search-tab" data-type="oneway"><i class="fa-solid fa-arrow-right-long"></i> One-Way Rental</button>
+          <button class="search-tab" data-type="delivery"><i class="fa-solid fa-truck-ramp-box"></i> Doorstep Delivery</button>
+        </div>
+
+        <form id="hero-search-form" class="search-form" novalidate>
+          <div class="search-field">
+            <label for="pickup-location"><i class="fa-solid fa-location-dot text-orange"></i> Pickup Location</label>
+            <div class="input-wrapper">
+              <select id="pickup-location" required>
+                <option value="" disabled selected>Select City or Airport</option>
+                <option value="JFK Airport, New York">JFK Airport, New York (JFK)</option>
+                <option value="LAX Airport, Los Angeles">LAX Airport, Los Angeles (LAX)</option>
+                <option value="Miami Downtown & Airport">Miami Downtown & MIA Airport</option>
+                <option value="Las Vegas Strip">Las Vegas Strip (LAS)</option>
+                <option value="Chicago O'Hare">Chicago O'Hare Airport (ORD)</option>
+                <option value="San Francisco Downtown">San Francisco Downtown (SFO)</option>
+                <option value="Custom Doorstep Address">Doorstep VIP Delivery (Enter in notes)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="search-field">
+            <label for="pickup-date"><i class="fa-solid fa-calendar-days text-orange"></i> Pickup Date & Time</label>
+            <div class="input-wrapper date-time-group">
+              <input type="date" id="pickup-date" required>
+              <input type="time" id="pickup-time" value="10:00" required>
+            </div>
+          </div>
+
+          <div class="search-field">
+            <label for="return-date"><i class="fa-solid fa-calendar-check text-orange"></i> Return Date & Time</label>
+            <div class="input-wrapper date-time-group">
+              <input type="date" id="return-date" required>
+              <input type="time" id="return-time" value="10:00" required>
+            </div>
+          </div>
+
+          <div class="search-field">
+            <label for="search-category"><i class="fa-solid fa-sliders text-orange"></i> Car Category</label>
+            <div class="input-wrapper">
+              <select id="search-category">
+                <option value="all">All Categories</option>
+                <option value="Luxury">Luxury Sedans</option>
+                <option value="SUV">Luxury SUVs</option>
+                <option value="Sports">Sports & Supercars</option>
+                <option value="Electric">Electric & Hybrid</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="search-field search-action">
+            <button type="submit" class="btn btn-primary btn-search w-100">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <span>Search Cars</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Available Cars Section -->
+  <section id="cars" class="section fleet-section">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-tag"><i class="fa-solid fa-fire text-orange"></i> OUR EXCLUSIVE FLEET</span>
+        <h2 class="section-title">Explore Available <span class="text-orange">Cars</span></h2>
+        <p class="section-subtitle">
+          Choose from over 500 handpicked luxury models. Meticulously inspected, professionally sanitized, and guaranteed to thrill.
+        </p>
+      </div>
+
+      <!-- Fleet Controls & Filter Bar -->
+      <div class="fleet-controls-bar">
+        <!-- Category Filter Pills -->
+        <div class="category-filters" id="category-filters" role="tablist">
+          <button class="filter-pill active" data-category="all" role="tab" aria-selected="true">
+            <i class="fa-solid fa-border-all"></i> All Cars (<span id="count-all">10</span>)
+          </button>
+          <button class="filter-pill" data-category="Luxury" role="tab" aria-selected="false">
+            <i class="fa-solid fa-gem"></i> Luxury
+          </button>
+          <button class="filter-pill" data-category="SUV" role="tab" aria-selected="false">
+            <i class="fa-solid fa-truck-monster"></i> SUV
+          </button>
+          <button class="filter-pill" data-category="Sports" role="tab" aria-selected="false">
+            <i class="fa-solid fa-gauge-high"></i> Sports
+          </button>
+          <button class="filter-pill" data-category="Electric" role="tab" aria-selected="false">
+            <i class="fa-solid fa-bolt"></i> Electric
+          </button>
+          <button class="filter-pill" data-category="Sedan" role="tab" aria-selected="false">
+            <i class="fa-solid fa-car-side"></i> Sedan
+          </button>
+        </div>
+
+        <!-- Search & Sorting Controls -->
+        <div class="fleet-actions-bar">
+          <!-- Text Search Filter -->
+          <div class="fleet-search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="car-text-search" placeholder="Search by model, brand, or feature..." aria-label="Search cars">
+            <button id="clear-search-btn" class="clear-search-btn d-none" aria-label="Clear search">&times;</button>
+          </div>
+
+          <!-- Sort Select -->
+          <div class="fleet-sort-box">
+            <label for="car-sort-select"><i class="fa-solid fa-arrow-down-wide-short text-orange"></i> Sort by:</label>
+            <select id="car-sort-select">
+              <option value="featured">Featured & Recommended</option>
+              <option value="price-low">Price: Low to High</option>
+              <option value="price-high">Price: High to Low</option>
+              <option value="rating">Top Customer Rated</option>
+              <option value="speed">Fastest (0-60 mph)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cars Grid Display -->
+      <div class="cars-grid" id="cars-grid" aria-live="polite">
+        <!-- Populated via JavaScript dynamically -->
+      </div>
+
+      <!-- Empty State If No Filter Matches -->
+      <div id="no-cars-found" class="no-cars-card d-none">
+        <i class="fa-solid fa-car-tunnel"></i>
+        <h3>No Vehicles Match Your Search</h3>
+        <p>Try clearing filters or adjusting your search keywords to view our full collection.</p>
+        <button id="reset-filters-btn" class="btn btn-outline-sm mt-3">Reset All Filters</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section id="how-it-works" class="section steps-section">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-tag"><i class="fa-solid fa-circle-check text-orange"></i> SEAMLESS EXPERIENCE</span>
+        <h2 class="section-title">How To Rent in <span class="text-orange">4 Simple Steps</span></h2>
+        <p class="section-subtitle">No long counter lines. No hidden surcharges. Enjoy pure driving pleasure within minutes.</p>
+      </div>
+
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-number">01</div>
+          <div class="step-icon"><i class="fa-solid fa-car-on"></i></div>
+          <h3 class="step-title">Choose Your Vehicle</h3>
+          <p class="step-desc">Select from our elite fleet of sports cars, luxury executive sedans, and high-end SUVs.</p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-number">02</div>
+          <div class="step-icon"><i class="fa-solid fa-calendar-days"></i></div>
+          <h3 class="step-title">Select Dates & Add-ons</h3>
+          <p class="step-desc">Pick your pickup and return schedule. Customize insurance coverage, GPS, or child safety seats.</p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-number">03</div>
+          <div class="step-icon"><i class="fa-solid fa-credit-card"></i></div>
+          <h3 class="step-title">Instant Digital Reserve</h3>
+          <p class="step-desc">Provide your contact and driver details. Enjoy free cancellation up to 24 hours prior.</p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-number">04</div>
+          <div class="step-icon"><i class="fa-solid fa-key"></i></div>
+          <h3 class="step-title">Drive Away & Enjoy</h3>
+          <p class="step-desc">Meet your concierge curbside at the airport, or have your dream car delivered directly to your doorstep.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Us Section -->
+  <section id="about" class="section about-section">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-visual">
+          <div class="about-image-wrapper">
+            <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80" alt="DriveEase Luxury Car Fleet" class="about-img main-img" loading="lazy">
+            <div class="about-floating-card">
+              <div class="badge-icon"><i class="fa-solid fa-award text-orange"></i></div>
+              <div>
+                <strong>6+ Years of Excellence</strong>
+                <span>#1 Rated Luxury Car Rental in the USA</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="about-content">
+          <span class="section-tag"><i class="fa-solid fa-shield-heart text-orange"></i> WHO WE ARE</span>
+          <h2 class="section-title">Setting The Benchmark For <span class="text-orange">Premium Mobility</span></h2>
+          <p class="about-text">
+            Founded with a passion for world-class automotive craftsmanship, <strong>DriveEase</strong> bridges the gap between everyday rental car compromises and unforgettable driving sensations. Whether you need a prestigious Mercedes-Benz for high-stakes business meetings or an exotic Lamborghini for a weekend getaway in Miami, we deliver perfection.
+          </p>
+
+          <div class="about-features-list">
+            <div class="about-feature-item">
+              <div class="feat-icon"><i class="fa-solid fa-check"></i></div>
+              <div>
+                <h4>Best Price Guarantee</h4>
+                <p>Transparent quotes with zero hidden dealership charges or mandatory add-on surprises.</p>
+              </div>
+            </div>
+            <div class="about-feature-item">
+              <div class="feat-icon"><i class="fa-solid fa-headset"></i></div>
+              <div>
+                <h4>24/7 Dedicated VIP Concierge</h4>
+                <p>Personal automotive assistance and roadside support whenever and wherever you need it.</p>
+              </div>
+            </div>
+            <div class="about-feature-item">
+              <div class="feat-icon"><i class="fa-solid fa-truck-fast"></i></div>
+              <div>
+                <h4>White-Glove Doorstep Delivery</h4>
+                <p>We deliver your sanitized, fueled vehicle directly to your private villa, hotel lobby, or jet center.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Counter Stats -->
+          <div class="about-stats-grid">
+            <div class="about-stat">
+              <span class="stat-number" data-target="15000">15,000+</span>
+              <span class="stat-label">Happy Clients</span>
+            </div>
+            <div class="about-stat">
+              <span class="stat-number" data-target="500">500+</span>
+              <span class="stat-label">Vehicles in Fleet</span>
+            </div>
+            <div class="about-stat">
+              <span class="stat-number" data-target="25">25+</span>
+              <span class="stat-label">Metro Hubs</span>
+            </div>
+            <div class="about-stat">
+              <span class="stat-number" data-target="99">99.8%</span>
+              <span class="stat-label">Satisfaction Rate</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Our Services Section -->
+  <section id="services" class="section services-section">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-tag"><i class="fa-solid fa-bell-concierge text-orange"></i> PREMIUM SOLUTIONS</span>
+        <h2 class="section-title">Bespoke <span class="text-orange">Rental Services</span></h2>
+        <p class="section-subtitle">Tailored automotive solutions crafted for discerning individual, executive, and group travelers.</p>
+      </div>
+
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon"><i class="fa-solid fa-trophy"></i></div>
+          <h3 class="service-title">Luxury Car Rental</h3>
+          <p class="service-desc">Drive the world's most iconic supercars and premium grand tourers from Porsche, Lamborghini, Ferrari, and Aston Martin.</p>
+          <ul class="service-perks">
+            <li><i class="fa-solid fa-circle-check"></i> Pristine, latest-year models</li>
+            <li><i class="fa-solid fa-circle-check"></i> Unlimited mileage options</li>
+          </ul>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon"><i class="fa-solid fa-plane-arrival"></i></div>
+          <h3 class="service-title">Airport VIP Pickup</h3>
+          <p class="service-desc">Skip terminal wait lines. Your personal chauffeur or delivery agent greets you at baggage claim with keys in hand.</p>
+          <ul class="service-perks">
+            <li><i class="fa-solid fa-circle-check"></i> Real-time flight tracking</li>
+            <li><i class="fa-solid fa-circle-check"></i> Curbside delivery at JFK, LAX, MIA</li>
+          </ul>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon"><i class="fa-solid fa-briefcase"></i></div>
+          <h3 class="service-title">Corporate Fleet Rental</h3>
+          <p class="service-desc">Executive sedans and SUVs for conferences, client hospitality, board members, and luxury corporate travel accounts.</p>
+          <ul class="service-perks">
+            <li><i class="fa-solid fa-circle-check"></i> Consolidated corporate billing</li>
+            <li><i class="fa-solid fa-circle-check"></i> Priority vehicle reservations</li>
+          </ul>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon"><i class="fa-solid fa-route"></i></div>
+          <h3 class="service-title">Self-Drive Experience</h3>
+          <p class="service-desc">Take full control of the open road on Pacific Coast Highway or mountain passes with high-performance sports cars.</p>
+          <ul class="service-perks">
+            <li><i class="fa-solid fa-circle-check"></i> Curated scenic route maps</li>
+            <li><i class="fa-solid fa-circle-check"></i> Comprehensive 24/7 assistance</li>
+          </ul>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon"><i class="fa-solid fa-calendar-week"></i></div>
+          <h3 class="service-title">Long-Term Subscriptions</h3>
+          <p class="service-desc">Enjoy month-to-month luxury vehicle freedom without the depreciation, maintenance, or financing burdens of ownership.</p>
+          <ul class="service-perks">
+            <li><i class="fa-solid fa-circle-check"></i> Swap vehicles anytime</li>
+            <li><i class="fa-solid fa-circle-check"></i> Routine maintenance included</li>
+          </ul>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon"><i class="fa-solid fa-champagne-glasses"></i></div>
+          <h3 class="service-title">Weddings & Red Carpet Events</h3>
+          <p class="service-desc">Make a breathtaking grand entrance on your wedding day or gala in a Rolls-Royce or Maybach limousine.</p>
+          <ul class="service-perks">
+            <li><i class="fa-solid fa-circle-check"></i> Uniformed professional chauffeurs</li>
+            <li><i class="fa-solid fa-circle-check"></i> Champagne and red-carpet staging</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Customer Reviews Section -->
+  <section id="reviews" class="section reviews-section">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-tag"><i class="fa-solid fa-star text-orange"></i> TESTIMONIALS</span>
+        <h2 class="section-title">What Our <span class="text-orange">Clients Say</span></h2>
+        <p class="section-subtitle">Real experiences from high-profile executives, supercar enthusiasts, and vacation travelers.</p>
+      </div>
+
+      <div class="reviews-grid">
+        <!-- Review 1 -->
+        <div class="review-card">
+          <div class="review-rating">
+            <i class="fa-solid fa-star text-orange"></i>
+            <i class="fa-solid fa-star text-orange"></i>
+            <i class="fa-solid fa-star text-orange"></i>
+            <i class="fa-solid fa-star text-orange"></i>
+            <i class="fa-solid fa-star text-orange"></i>
+          </div>
+          <p class="review-text">
+            "Rented the Porsche 911 GTS for a weekend drive through Napa Valley. The car was in showroom condition with just 4,000 miles. Handover took literally under two minutes. Absolutely phenomenal service!"
+          </p>
+          <div class="reviewer-meta">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" alt="Sophia Martinez" class="reviewer-img">
+            <div>
+              <h4 class="reviewer-name">Sophia Martinez</h4>
+              <span class="reviewer-badge"><i class="fa-solid fa-circle-check text-orange"></i> Verified Renter • Porsche 911 GTS</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 2 -->
+        <div class="review-card">
+          <div class="review-rating">
+            <i class="fa-solid fa-star text-orange"></i>
+            <i class="fa-solid fa-star text-orange"></i>
+            <i class="fa-solid fa-star text-orange"></i>
+            <i class="fa-solid fa-star text-orange"></i>
+            <i class="fa-solid fa-star text-orange"></i>
+          </div>
+          <p class="review-text">
+            "DriveEase is my go-to whenever I fly into LAX. Their curbside terminal delivery for the Mercedes S-Class saved me over an hour after a cross-country flight. The AI assistant DriveBot was super helpful answering questions late at night!"
+          </p>
+          <div class="reviewer-meta">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80" alt="Marcus Sterling" class="reviewer-img">
+            <div>
+              <h4 class="reviewer-name">Marcus Sterling</h4>
+              <span class="reviewer-badge"><i class="fa-solid fa-circle-check text-orange"></i> Verified Renter • Mercedes S-Class</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 3 -->
+        <div class="review-card">
+          <div class="review-rating">
+            <i class="fa-solid fa-star text-orange"></i>
+            <i class="fa-solid fa-star text-orange"></i>
+            <i class="fa-solid fa-star text-orange"></i>
+            <i class="fa-solid fa-star text-orange"></i>
+            <i class="fa-solid fa-star text-orange"></i>
+          </div>
+          <p class="review-text">
+            "Booked the Cadillac Escalade for our family ski trip to Aspen. 7 comfortable seats, massive luggage space, and flawless AWD handling. Transparent billing and zero surprise deposits. Highly recommend DriveEase!"
+          </p>
+          <div class="reviewer-meta">
+            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&q=80" alt="David Chen" class="reviewer-img">
+            <div>
+              <h4 class="reviewer-name">David Chen</h4>
+              <span class="reviewer-badge"><i class="fa-solid fa-circle-check text-orange"></i> Verified Renter • Cadillac Escalade</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Us Section -->
+  <section id="contact" class="section contact-section">
+    <div class="container">
+      <div class="contact-wrapper">
+        <div class="contact-info-col">
+          <span class="section-tag"><i class="fa-solid fa-envelope text-orange"></i> GET IN TOUCH</span>
+          <h2 class="section-title">We're Here To <span class="text-orange">Assist You</span></h2>
+          <p class="contact-desc">
+            Have questions regarding custom vehicle availability, corporate accounts, or bespoke airport transfers? Our VIP concierge team responds within 15 minutes.
+          </p>
+
+          <div class="info-items">
+            <div class="info-item">
+              <div class="info-icon"><i class="fa-solid fa-phone"></i></div>
+              <div>
+                <span class="info-label">24/7 Concierge Hotline</span>
+                <a href="tel:+18005553748" class="info-val">+1 (800) 555-DRIVE / (800) 555-3748</a>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <div class="info-icon"><i class="fa-solid fa-envelope"></i></div>
+              <div>
+                <span class="info-label">Email Inquiries</span>
+                <a href="mailto:concierge@driveease.com" class="info-val">concierge@driveease.com</a>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <div class="info-icon"><i class="fa-solid fa-location-dot"></i></div>
+              <div>
+                <span class="info-label">Headquarters</span>
+                <span class="info-val">500 Luxury Boulevard, Suite 1200, New York, NY 10001</span>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <div class="info-icon"><i class="fa-solid fa-clock"></i></div>
+              <div>
+                <span class="info-label">Operating Hours</span>
+                <span class="info-val">24 Hours / 7 Days a Week (Fleet Dispatch Always Active)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick FAQ Accordion -->
+          <div class="quick-faq mt-4">
+            <h4 class="faq-heading"><i class="fa-solid fa-circle-question text-orange"></i> Frequently Asked Questions</h4>
+            <div class="faq-accordion">
+              <div class="faq-item">
+                <button class="faq-question">What is the minimum age to rent? <i class="fa-solid fa-chevron-down"></i></button>
+                <div class="faq-answer">
+                  <p>Drivers must be at least 21 years old for standard luxury sedans and electric vehicles. High-performance supercars (Porsche 911, Lamborghini Urus, BMW M4) require drivers to be 25+.</p>
+                </div>
+              </div>
+              <div class="faq-item">
+                <button class="faq-question">What documents do I need at pickup? <i class="fa-solid fa-chevron-down"></i></button>
+                <div class="faq-answer">
+                  <p>You need a valid physical driver's license held for at least one year and a major credit card in the primary renter's name for the security deposit hold.</p>
+                </div>
+              </div>
+              <div class="faq-item">
+                <button class="faq-question">What is your cancellation policy? <i class="fa-solid fa-chevron-down"></i></button>
+                <div class="faq-answer">
+                  <p>Enjoy 100% free cancellation with an immediate full refund up to 24 hours prior to your scheduled pickup time.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive Contact Form -->
+        <div class="contact-form-col">
+          <div class="contact-card">
+            <h3 class="form-title">Send Us a Direct Message</h3>
+            <p class="form-subtitle">Fill out the form below and an automotive specialist will follow up immediately.</p>
+
+            <form id="contact-form" class="contact-form" novalidate>
+              <div class="form-group">
+                <label for="contact-name">Full Name <span class="required">*</span></label>
+                <div class="input-icon-wrapper">
+                  <i class="fa-solid fa-user"></i>
+                  <input type="text" id="contact-name" placeholder="Johnathan Doe" required>
+                </div>
+                <span class="form-error-msg" id="name-error"></span>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="contact-email">Email Address <span class="required">*</span></label>
+                  <div class="input-icon-wrapper">
+                    <i class="fa-solid fa-envelope"></i>
+                    <input type="email" id="contact-email" placeholder="john@example.com" required>
+                  </div>
+                  <span class="form-error-msg" id="email-error"></span>
+                </div>
+
+                <div class="form-group">
+                  <label for="contact-phone">Phone Number <span class="required">*</span></label>
+                  <div class="input-icon-wrapper">
+                    <i class="fa-solid fa-phone"></i>
+                    <input type="tel" id="contact-phone" placeholder="+1 (555) 000-0000" required>
+                  </div>
+                  <span class="form-error-msg" id="phone-error"></span>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="contact-subject">Inquiry Type</label>
+                <div class="input-icon-wrapper">
+                  <i class="fa-solid fa-list-check"></i>
+                  <select id="contact-subject">
+                    <option value="reservation">Vehicle Reservation Question</option>
+                    <option value="corporate">Corporate Fleet Account</option>
+                    <option value="airport">Airport VIP Delivery Request</option>
+                    <option value="partnership">Partnership or Event Inquiry</option>
+                    <option value="other">General Support</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="contact-message">Your Message <span class="required">*</span></label>
+                <div class="input-icon-wrapper textarea-wrapper">
+                  <i class="fa-solid fa-comment-dots"></i>
+                  <textarea id="contact-message" rows="4" placeholder="Tell us about your trip dates, preferred car models, or custom requirements..." required></textarea>
+                </div>
+                <span class="form-error-msg" id="msg-error"></span>
+              </div>
+
+              <button type="submit" class="btn btn-primary w-100 btn-submit" id="contact-submit-btn">
+                <span>Send Message</span>
+                <i class="fa-solid fa-paper-plane"></i>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container footer-top">
+      <div class="footer-grid">
+        <!-- Brand Info -->
+        <div class="footer-col brand-col">
+          <a href="#home" class="brand-logo footer-logo">
+            <div class="logo-icon"><i class="fa-solid fa-car-side"></i></div>
+            <div class="logo-text">
+              <span>Drive<strong class="text-orange">Ease</strong></span>
+              <span class="logo-tagline">PREMIUM CAR RENTAL</span>
+            </div>
+          </a>
+          <p class="footer-desc">
+            Redefining luxury mobility with the finest exotic cars, 100% transparent pricing, and 24/7 dedicated AI concierge support across major US hubs.
+          </p>
+          <div class="footer-socials">
+            <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" aria-label="Twitter X"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="footer-col">
+          <h4 class="footer-col-title">Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#cars">Our Exclusive Fleet</a></li>
+            <li><a href="#about">About DriveEase</a></li>
+            <li><a href="#services">VIP Services</a></li>
+            <li><a href="#reviews">Verified Reviews</a></li>
+            <li><a href="#contact">Contact Concierge</a></li>
+          </ul>
+        </div>
+
+        <!-- Fleet Categories -->
+        <div class="footer-col">
+          <h4 class="footer-col-title">Popular Fleets</h4>
+          <ul class="footer-links">
+            <li><a href="#cars" data-filter="Sports">Sports & Supercars</a></li>
+            <li><a href="#cars" data-filter="Luxury">Executive Sedans</a></li>
+            <li><a href="#cars" data-filter="SUV">Luxury & 7-Seat SUVs</a></li>
+            <li><a href="#cars" data-filter="Electric">Electric & Hybrid Performance</a></li>
+            <li><a href="#cars">Airport Delivery Collection</a></li>
+          </ul>
+        </div>
+
+        <!-- Newsletter Subscription -->
+        <div class="footer-col newsletter-col">
+          <h4 class="footer-col-title">Exclusive Offers</h4>
+          <p class="footer-subtext">Subscribe to receive private fleet additions, weekend getaway promotions, and exclusive member discounts.</p>
+          <form id="newsletter-form" class="newsletter-form">
+            <div class="newsletter-input-group">
+              <input type="email" id="newsletter-email" placeholder="Enter your email" required aria-label="Email address for newsletter">
+              <button type="submit" class="btn btn-primary" aria-label="Subscribe">
+                <i class="fa-solid fa-arrow-right"></i>
+              </button>
+            </div>
+          </form>
+          <div class="security-badges">
+            <span><i class="fa-solid fa-lock text-orange"></i> 256-Bit SSL Encrypted Checkout</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Footer Bar -->
+    <div class="footer-bottom">
+      <div class="container footer-bottom-container">
+        <p class="copyright-text">
+          &copy; <span id="current-year">2026</span> DriveEase Inc. All rights reserved. Designed for premium automotive enthusiasts.
+        </p>
+        <div class="legal-links">
+          <a href="#">Privacy Policy</a>
+          <span>•</span>
+          <a href="#">Terms of Service</a>
+          <span>•</span>
+          <a href="#">Rental Agreement</a>
+          <span>•</span>
+          <a href="#">Insurance Terms</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== MODALS ==================== -->
+
+  <!-- 1. Car Details Modal -->
+  <div id="car-details-modal" class="modal-overlay" aria-hidden="true">
+    <div class="modal-container modal-lg">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <span class="badge-category" id="modal-car-category">Luxury</span>
+          <h3 id="modal-car-title" class="modal-title">Porsche 911 Carrera GTS</h3>
+        </div>
+        <button class="modal-close-btn" data-close-modal>&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="details-grid">
+          <!-- Car Image Gallery Area -->
+          <div class="details-image-area">
+            <div class="details-main-img-box">
+              <img id="modal-car-image" src="" alt="Car Image" class="modal-car-img">
+              <span class="modal-price-tag"><span id="modal-car-price">$380</span> / day</span>
+            </div>
+            <div class="modal-specs-badges" id="modal-specs-badges">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+
+          <!-- Car Specs & Details -->
+          <div class="details-content-area">
+            <h4 class="details-subhead">Performance & Technical Specifications</h4>
+            <div class="specs-table-grid" id="modal-specs-table">
+              <!-- Rendered via JS -->
+            </div>
+
+            <h4 class="details-subhead mt-3">Included Luxury Amenities</h4>
+            <div class="features-checklist" id="modal-features-list">
+              <!-- Rendered via JS -->
+            </div>
+
+            <div class="rental-terms-box">
+              <div class="term-item"><i class="fa-solid fa-user-check text-orange"></i> Min Age: <strong id="modal-min-age">25+</strong></div>
+              <div class="term-item"><i class="fa-solid fa-shield-check text-orange"></i> Refundable Deposit: <strong id="modal-deposit">$1,500</strong></div>
+              <div class="term-item"><i class="fa-solid fa-gas-pump text-orange"></i> Fuel: <strong>Full-to-Full</strong></div>
+              <div class="term-item"><i class="fa-solid fa-road text-orange"></i> Mileage: <strong>200 mi/day included</strong></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-outline" data-close-modal>Close</button>
+        <button id="modal-proceed-booking-btn" class="btn btn-primary">
+          <span>Proceed to Booking</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Car Booking System Modal -->
+  <div id="booking-modal" class="modal-overlay" aria-hidden="true">
+    <div class="modal-container modal-xl">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <span class="badge-category"><i class="fa-solid fa-shield-halved text-orange"></i> SECURE RESERVATION</span>
+          <h3 class="modal-title">Book Your Vehicle</h3>
+        </div>
+        <button class="modal-close-btn" data-close-modal>&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="booking-flow-grid">
+          <!-- Left Column: Form Steps -->
+          <div class="booking-form-col">
+            <form id="car-booking-form" novalidate>
+              <!-- Step 1: Vehicle & Schedule -->
+              <div class="booking-section-card">
+                <h4 class="booking-step-title"><span class="step-num">1</span> Rental Dates & Location</h4>
+                
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="book-pickup-location">Pickup Location <span class="required">*</span></label>
+                    <select id="book-pickup-location" required>
+                      <option value="JFK Airport, New York">JFK Airport, New York (JFK)</option>
+                      <option value="LAX Airport, Los Angeles">LAX Airport, Los Angeles (LAX)</option>
+                      <option value="Miami Downtown & Airport">Miami Downtown & MIA Airport</option>
+                      <option value="Las Vegas Strip">Las Vegas Strip (LAS)</option>
+                      <option value="Chicago O'Hare">Chicago O'Hare Airport (ORD)</option>
+                      <option value="San Francisco Downtown">San Francisco Downtown (SFO)</option>
+                      <option value="Custom Doorstep VIP Delivery">Doorstep VIP Delivery (Hotel/Home)</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="book-return-location">Return Location <span class="required">*</span></label>
+                    <select id="book-return-location" required>
+                      <option value="Same as Pickup Location">Same as Pickup Location</option>
+                      <option value="JFK Airport, New York">JFK Airport, New York (JFK)</option>
+                      <option value="LAX Airport, Los Angeles">LAX Airport, Los Angeles (LAX)</option>
+                      <option value="Miami Downtown & Airport">Miami Downtown & MIA Airport</option>
+                      <option value="Las Vegas Strip">Las Vegas Strip (LAS)</option>
+                      <option value="Chicago O'Hare">Chicago O'Hare Airport (ORD)</option>
+                      <option value="San Francisco Downtown">San Francisco Downtown (SFO)</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="book-pickup-date">Pickup Date <span class="required">*</span></label>
+                    <input type="date" id="book-pickup-date" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="book-return-date">Return Date <span class="required">*</span></label>
+                    <input type="date" id="book-return-date" required>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Step 2: Protection & Add-ons -->
+              <div class="booking-section-card mt-3">
+                <h4 class="booking-step-title"><span class="step-num">2</span> Optional Protection & Add-ons</h4>
+                <div class="addons-list">
+                  <label class="addon-checkbox-card">
+                    <input type="checkbox" id="addon-insurance" data-price="25">
+                    <div class="addon-info">
+                      <div class="addon-header">
+                        <strong>Full Coverage Damage Waiver</strong>
+                        <span class="addon-price">+$25 / day</span>
+                      </div>
+                      <p class="addon-desc">$0 collision deductible and complete peace of mind.</p>
+                    </div>
+                  </label>
+
+                  <label class="addon-checkbox-card">
+                    <input type="checkbox" id="addon-roadside" data-price="10">
+                    <div class="addon-info">
+                      <div class="addon-header">
+                        <strong>24/7 Premium Roadside Assist</strong>
+                        <span class="addon-price">+$10 / day</span>
+                      </div>
+                      <p class="addon-desc">Immediate towing, lockout, tire change, and battery service.</p>
+                    </div>
+                  </label>
+
+                  <label class="addon-checkbox-card">
+                    <input type="checkbox" id="addon-driver" data-price="15">
+                    <div class="addon-info">
+                      <div class="addon-header">
+                        <strong>Additional Registered Driver</strong>
+                        <span class="addon-price">+$15 / day</span>
+                      </div>
+                      <p class="addon-desc">Allow a second eligible driver to take the wheel.</p>
+                    </div>
+                  </label>
+
+                  <label class="addon-checkbox-card">
+                    <input type="checkbox" id="addon-gps" data-price="10">
+                    <div class="addon-info">
+                      <div class="addon-header">
+                        <strong>Wi-Fi Hotspot & GPS Navigation</strong>
+                        <span class="addon-price">+$10 / day</span>
+                      </div>
+                      <p class="addon-desc">High-speed unlimited 5G in-car mobile Wi-Fi hotspot.</p>
+                    </div>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Step 3: Customer Information -->
+              <div class="booking-section-card mt-3">
+                <h4 class="booking-step-title"><span class="step-num">3</span> Driver Information</h4>
+                
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="book-cust-name">Full Legal Name <span class="required">*</span></label>
+                    <input type="text" id="book-cust-name" placeholder="As shown on driver's license" required>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="book-cust-email">Email Address <span class="required">*</span></label>
+                    <input type="email" id="book-cust-email" placeholder="For booking confirmation" required>
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="book-cust-phone">Phone Number <span class="required">*</span></label>
+                    <input type="tel" id="book-cust-phone" placeholder="+1 (555) 000-0000" required>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="book-cust-license">Driver's License # <span class="required">*</span></label>
+                    <input type="text" id="book-cust-license" placeholder="e.g. D12345678" required>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="book-special-requests">Flight # or Special Notes (Optional)</label>
+                  <input type="text" id="book-special-requests" placeholder="e.g. Flight AA1422 arriving at 2:30 PM, terminal curbside">
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <!-- Right Column: Live Booking Summary -->
+          <div class="booking-summary-col">
+            <div class="summary-card">
+              <h4 class="summary-title">Booking Summary</h4>
+              
+              <!-- Car Preview -->
+              <div class="summary-car-preview">
+                <img id="summary-car-img" src="" alt="Selected Car" class="summary-car-img">
+                <div class="summary-car-meta">
+                  <h4 id="summary-car-name">Car Name</h4>
+                  <span id="summary-car-category" class="summary-category-badge">Luxury</span>
+                  <div class="summary-daily-rate"><strong id="summary-daily-price">$0</strong> / day</div>
+                </div>
+              </div>
+
+              <!-- Itinerary Pills -->
+              <div class="summary-itinerary">
+                <div class="itinerary-row">
+                  <span class="itinerary-label"><i class="fa-solid fa-clock"></i> Duration:</span>
+                  <strong id="summary-days-count">1 Day</strong>
+                </div>
+                <div class="itinerary-row">
+                  <span class="itinerary-label"><i class="fa-solid fa-location-dot"></i> Pickup:</span>
+                  <span id="summary-pickup-loc" class="itinerary-val">JFK Airport</span>
+                </div>
+              </div>
+
+              <!-- Promo Code Input -->
+              <div class="promo-code-box">
+                <label for="promo-input"><i class="fa-solid fa-tag text-orange"></i> Promo / Coupon Code</label>
+                <div class="promo-input-group">
+                  <input type="text" id="promo-input" placeholder="WELCOME10 or WEEKEND20" uppercase>
+                  <button type="button" id="apply-promo-btn" class="btn btn-outline-sm">Apply</button>
+                </div>
+                <div id="promo-message" class="promo-msg d-none"></div>
+              </div>
+
+              <!-- Price Breakdown List -->
+              <div class="price-breakdown">
+                <div class="price-row">
+                  <span>Base Vehicle Rental (<span id="calc-days-multiplier">1 day</span>)</span>
+                  <span id="calc-base-total">$0.00</span>
+                </div>
+                <div class="price-row">
+                  <span>Selected Add-ons</span>
+                  <span id="calc-addons-total">$0.00</span>
+                </div>
+                <div class="price-row">
+                  <span>Taxes & Airport Surcharges (10%)</span>
+                  <span id="calc-taxes-total">$0.00</span>
+                </div>
+                <div class="price-row discount-row d-none" id="calc-discount-row">
+                  <span class="text-orange"><i class="fa-solid fa-sparkles"></i> Promo Discount (<span id="discount-pct-label">10%</span>)</span>
+                  <span id="calc-discount-val" class="text-orange">-$0.00</span>
+                </div>
+
+                <div class="price-divider"></div>
+
+                <div class="total-row">
+                  <span>Estimated Total:</span>
+                  <strong id="calc-grand-total" class="grand-total-price">$0.00</strong>
+                </div>
+                <div class="deposit-notice">
+                  <small><i class="fa-solid fa-circle-info"></i> Includes full refund guarantee up to 24 hours prior. Refundable deposit of <span id="summary-deposit-amt">$1,000</span> held at vehicle pickup.</small>
+                </div>
+              </div>
+
+              <!-- Submit Button -->
+              <button type="button" id="confirm-booking-btn" class="btn btn-primary w-100 btn-lg mt-3">
+                <span id="confirm-btn-text">Confirm Booking</span>
+                <i class="fa-solid fa-shield-check"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Booking Confirmation Success Modal -->
+  <div id="confirmation-modal" class="modal-overlay" aria-hidden="true">
+    <div class="modal-container modal-md text-center">
+      <div class="modal-body p-4">
+        <div class="success-icon-wrap">
+          <i class="fa-solid fa-circle-check"></i>
+        </div>
+        <h2 class="modal-title mt-2">Booking Confirmed!</h2>
+        <p class="text-muted">Thank you for choosing DriveEase. Your reservation details have been processed and confirmed.</p>
+
+        <!-- Digital Receipt -->
+        <div class="receipt-card mt-3">
+          <div class="receipt-header">
+            <div class="receipt-brand">Drive<strong class="text-orange">Ease</strong></div>
+            <div class="receipt-ref">REF: <strong id="receipt-booking-id">#DE-89210</strong></div>
+          </div>
+
+          <div class="receipt-car-info">
+            <h4 id="receipt-car-name">Porsche 911 Carrera GTS</h4>
+            <span id="receipt-category" class="badge-category">Sports</span>
+          </div>
+
+          <div class="receipt-details-list">
+            <div class="receipt-row">
+              <span>Customer Name:</span>
+              <strong id="receipt-cust-name">John Doe</strong>
+            </div>
+            <div class="receipt-row">
+              <span>Pickup Date:</span>
+              <strong id="receipt-pickup-date">Nov 20, 2026</strong>
+            </div>
+            <div class="receipt-row">
+              <span>Return Date:</span>
+              <strong id="receipt-return-date">Nov 23, 2026</strong>
+            </div>
+            <div class="receipt-row">
+              <span>Pickup Location:</span>
+              <strong id="receipt-location">JFK Airport, New York</strong>
+            </div>
+            <div class="receipt-row receipt-total-row">
+              <span>Total Paid / Due:</span>
+              <strong id="receipt-total-paid" class="text-orange">$1,254.00</strong>
+            </div>
+          </div>
+
+          <div class="receipt-qr-mock">
+            <div class="qr-box">
+              <i class="fa-solid fa-qrcode"></i>
+            </div>
+            <span>Show this QR code or Reference ID to your concierge at pickup.</span>
+          </div>
+        </div>
+
+        <div class="receipt-actions mt-3">
+          <button id="print-receipt-btn" class="btn btn-outline"><i class="fa-solid fa-print"></i> Print Receipt</button>
+          <button id="view-in-my-bookings-btn" class="btn btn-primary"><i class="fa-solid fa-calendar-check"></i> View in My Bookings</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. My Bookings Drawer/Modal -->
+  <div id="my-bookings-modal" class="modal-overlay" aria-hidden="true">
+    <div class="modal-container modal-lg">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <span class="badge-category"><i class="fa-solid fa-user-clock text-orange"></i> CUSTOMER PORTAL</span>
+          <h3 class="modal-title">My Bookings</h3>
+        </div>
+        <button class="modal-close-btn" data-close-modal>&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div id="my-bookings-list" class="bookings-history-list">
+          <!-- Rendered via JS -->
+        </div>
+
+        <div id="no-bookings-placeholder" class="no-bookings-placeholder d-none">
+          <i class="fa-solid fa-car-rear"></i>
+          <h4>No Active Bookings Found</h4>
+          <p>You haven't reserved any vehicles yet. Explore our premier fleet and book your dream car in under a minute!</p>
+          <button class="btn btn-primary mt-3" data-close-modal onclick="document.getElementById('cars').scrollIntoView({behavior: 'smooth'})">
+            Browse Luxury Fleet
+          </button>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-outline" data-close-modal>Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. Auth Modal (Login / Sign Up) -->
+  <div id="auth-modal" class="modal-overlay" aria-hidden="true">
+    <div class="modal-container modal-sm">
+      <div class="modal-header">
+        <div class="modal-tabs">
+          <button class="modal-tab active" data-tab-target="login-panel">Log In</button>
+          <button class="modal-tab" data-tab-target="signup-panel">Sign Up</button>
+        </div>
+        <button class="modal-close-btn" data-close-modal>&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Login Panel -->
+        <div id="login-panel" class="auth-panel active">
+          <p class="auth-subtext">Access your rental reservations, rewards, and expedited pickup preferences.</p>
+          <form id="login-form">
+            <div class="form-group">
+              <label for="login-email">Email Address</label>
+              <input type="email" id="login-email" value="alex.davis@example.com" required>
+            </div>
+            <div class="form-group">
+              <label for="login-password">Password</label>
+              <input type="password" id="login-password" value="••••••••" required>
+            </div>
+            <div class="auth-aux-row">
+              <label><input type="checkbox" checked> Remember me</label>
+              <a href="#" class="forgot-link">Forgot password?</a>
+            </div>
+            <button type="submit" class="btn btn-primary w-100 mt-2">Log In to DriveEase</button>
+          </form>
+
+          <div class="quick-demo-login mt-3">
+            <button type="button" id="quick-demo-login-btn" class="btn btn-glass w-100">
+              <i class="fa-solid fa-bolt text-orange"></i> Instant 1-Click Demo Login
+            </button>
+          </div>
+        </div>
+
+        <!-- Sign Up Panel -->
+        <div id="signup-panel" class="auth-panel d-none">
+          <p class="auth-subtext">Join DriveEase VIP Rewards and receive 10% off your first luxury rental.</p>
+          <form id="signup-form">
+            <div class="form-group">
+              <label for="signup-name">Full Name</label>
+              <input type="text" id="signup-name" placeholder="Alex Davis" required>
+            </div>
+            <div class="form-group">
+              <label for="signup-email">Email Address</label>
+              <input type="email" id="signup-email" placeholder="alex@example.com" required>
+            </div>
+            <div class="form-group">
+              <label for="signup-password">Password</label>
+              <input type="password" id="signup-password" placeholder="At least 8 characters" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100 mt-2">Create Account</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== AI CHATBOT: DRIVEBOT ==================== -->
+  <aside class="chatbot-floating-wrapper" aria-label="DriveBot AI Assistant">
+    <!-- Chatbot Toggle Trigger Button -->
+    <button id="chatbot-toggle-btn" class="chatbot-trigger-btn" aria-label="Open AI Concierge Chatbot">
+      <div class="pulse-ring"></div>
+      <div class="trigger-icon-inner">
+        <i class="fa-solid fa-robot chatbot-icon-open"></i>
+        <i class="fa-solid fa-xmark chatbot-icon-close d-none"></i>
+      </div>
+      <span class="chat-badge" id="chat-notification-badge">1</span>
+    </button>
+
+    <!-- Floating Chat Window -->
+    <div id="chatbot-window" class="chatbot-window" aria-hidden="true">
+      <!-- Chatbot Header -->
+      <div class="chatbot-header">
+        <div class="bot-header-info">
+          <div class="bot-avatar">
+            <i class="fa-solid fa-robot"></i>
+            <span class="bot-status-indicator" title="Online"></span>
+          </div>
+          <div class="bot-header-text">
+            <h4>DriveBot <span class="ai-badge">AI Concierge</span></h4>
+            <span class="bot-status-desc" id="bot-status-text">Online • Ready to assist</span>
+          </div>
+        </div>
+
+        <div class="bot-header-actions">
+          <button id="clear-chat-btn" class="bot-action-btn" title="Clear Conversation"><i class="fa-solid fa-trash-can"></i></button>
+          <button id="minimize-chat-btn" class="bot-action-btn" title="Minimize Chat"><i class="fa-solid fa-minus"></i></button>
+        </div>
+      </div>
+
+      <!-- Provider Status Banner -->
+      <div class="bot-mode-banner" id="bot-mode-banner">
+        <i class="fa-solid fa-circle-check text-orange"></i>
+        <span id="bot-provider-label">Connected to DriveEase AI Engine</span>
+      </div>
+
+      <!-- Quick Suggestion Chips Carousel -->
+      <div class="chat-suggestions-carousel" id="chat-suggestions">
+        <button class="suggestion-chip" data-query="What luxury cars are available?">🚗 Available Luxury Cars</button>
+        <button class="suggestion-chip" data-query="How much does it cost to rent the Porsche 911?">💰 Porsche 911 Rates</button>
+        <button class="suggestion-chip" data-query="What are the age and license requirements?">📋 Rental Requirements</button>
+        <button class="suggestion-chip" data-query="Do you offer airport curbside pickup?">📍 Airport Pickup Info</button>
+        <button class="suggestion-chip" data-query="Are there any active discount or promo codes?">🎁 Active Promo Codes</button>
+        <button class="suggestion-chip" data-query="Help me choose a car for a weekend road trip">⚡ Recommend a Car</button>
+      </div>
+
+      <!-- Chat Messages Body -->
+      <div class="chat-messages-container" id="chat-messages" role="log" aria-live="polite">
+        <!-- Initial messages rendered via chatbot.js -->
+      </div>
+
+      <!-- Typing Indicator -->
+      <div id="chat-typing-indicator" class="chat-typing-indicator d-none">
+        <div class="typing-bubble">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <small class="typing-label">DriveBot is typing...</small>
+      </div>
+
+      <!-- Chat Input Area -->
+      <form id="chat-input-form" class="chat-input-area">
+        <input 
+          type="text" 
+          id="chat-user-input" 
+          class="chat-input-field" 
+          placeholder="Ask DriveBot anything about cars, pricing, rules..." 
+          autocomplete="off" 
+          required
+        >
+        <button type="submit" id="chat-send-btn" class="chat-send-btn" aria-label="Send message">
+          <i class="fa-solid fa-paper-plane"></i>
+        </button>
+      </form>
+    </div>
+  </aside>
+
+  <!-- JavaScript Modules -->
+  <script src="script.js"></script>
+  <script src="chatbot.js"></script>
+</body>
+</html>
